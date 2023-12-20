@@ -1,13 +1,11 @@
 #!/usr/bin/python3
+import sys
 
-def raise_exception_msg(message=""):
-    """Raises a name exception with a message."""
+
+def safe_print_integer_err(value):
     try:
-        # Raise a NameError with the specified message
-        raise NameError(message)
-    except NameError as e:
-        # If a NameError occurs, print the error message
-        print(f"NameError: {e}")
-
-# Call the function with a custom message
-raise_exception_msg("This is a custom error message.")
+        print("{:d}".format(value))
+        return True
+    except (ValueError, NameError, TypeError) as err:
+        print("Exception: {}".format(err), file=sys.stderr)
+        return False
